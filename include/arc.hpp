@@ -216,7 +216,6 @@ bool arc<T>::cache (const T& x)
         already_in_memory = true;
         process_T1_case (it);
     }
-        
     
     else if ((it = std::find (cache_dir.T2.begin(), cache_dir.T2.end(), x_hash)) != cache_dir.T2.end())
     {
