@@ -16,6 +16,11 @@ cmake_minimum_required (VERSION 3.14)
 #-------------
     add_executable (run ${PROJECT_SOURCE_DIR}/src/main.cpp)
 
+#----------------------
+# Genious cache target
+#----------------------
+    add_executable (run_belady  ${PROJECT_SOURCE_DIR}/genious_cache/main.cpp)
+
 #-------------------
 # Compilation flags
 #-------------------
@@ -23,8 +28,10 @@ cmake_minimum_required (VERSION 3.14)
     set (CMAKE_CXX_STANDARD_REQUIRED ON)
     if (MSVC)
         target_compile_options (run PRIVATE  /W4)
+        target_compile_options (run_belady PRIVATE  /W4)
     else ()
         target_compile_options (run PRIVATE  -Wall -Wextra -pedantic -Werror)
+        target_compile_options (run_belady PRIVATE  -Wall -Wextra -pedantic -Werror)
     endif ()
 
 #---------

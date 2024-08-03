@@ -63,6 +63,7 @@ public:
         memory.reserve(i_capacity);
     }
     bool cache (const T& x);
+    void dump ();
 };
 
 template <typename T>
@@ -238,3 +239,21 @@ bool arc<T>::cache (const T& x)
 
     return already_in_memory;
 }
+
+template <typename T>
+void arc<T>::dump () {
+    std::cout << "--------B1--------" << std::endl;
+    std::for_each(cache_dir.B1.rbegin(), cache_dir.B1.rend(), 
+        [](std::size_t hash) { std::cout << hash << std::endl; });
+    std::cout << "--------T1--------" << std::endl;
+    std::for_each(cache_dir.T1.rbegin(), cache_dir.T1.rend(), 
+        [](std::size_t hash) { std::cout << hash << std::endl; });
+    std::cout << "==================" << std::endl;
+    std::for_each(cache_dir.T2.begin(), cache_dir.T2.end(), 
+        [](std::size_t hash) { std::cout << hash << std::endl; });
+    std::cout << "--------T2--------" << std::endl;
+    std::for_each(cache_dir.B2.begin(), cache_dir.B2.end(), 
+        [](std::size_t hash) { std::cout << hash << std::endl; });
+    std::cout << "--------B2--------" << std::endl;
+}
+

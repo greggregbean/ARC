@@ -13,6 +13,12 @@ cmake --build build
 ````
 ./build/run
 ````
+
+## Runing genious cache
+````
+./build/run_belady
+````
+
 ## Running tests
 ````
 ./build/run_unit_tests
