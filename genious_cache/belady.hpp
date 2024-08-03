@@ -16,15 +16,15 @@ class belady {
     bool contain (std::size_t hash);
     std::size_t will_use_later (const std::vector<std::size_t>& i_hash_vec, std::size_t pos);
 
-    public:
-        belady (std::size_t i_capacity) : capacity (i_capacity) {}
+public:
+    std::size_t get_capacity () {return capacity;}
+    std::size_t get_size() {return hash_vec.size();}
 
-        std::size_t cache (const std::vector<std::size_t>& i_hash_vec);
-        
-        void belady::dump ();
-        
-        std::size_t get_capacity () {return capacity;}
-        std::size_t get_size() {return hash_vec.size();}
+    belady (std::size_t i_capacity) : capacity (i_capacity) {}
+
+    std::size_t cache (const std::vector<std::size_t>& i_hash_vec);
+    
+    void dump ();
 };
 
 void belady::replace_hash (std::size_t new_hash, std::size_t pos_of_old_hash) { 
@@ -49,6 +49,7 @@ std::size_t belady::will_use_later (const std::vector<std::size_t>& i_hash_vec, 
     std::size_t future_pos;
 
     for(std::size_t i = 0; i < capacity; i++) {
+
         future_pos = pos + 1;
 
         while (future_pos < i_hash_vec.size() && i_hash_vec[future_pos] != hash_vec[i]) {
@@ -64,18 +65,10 @@ std::size_t belady::will_use_later (const std::vector<std::size_t>& i_hash_vec, 
     return most_useless;
 }
 
-void belady::dump () {
-    std::cout << "Belady's data: ";
-    for (std::size_t hash : hash_vec) {std::cout << "[ " << hash << " ] ";}
-    std::cout << std::endl;
-}
-
 std::size_t belady::cache (const std::vector<std::size_t>& i_hash_vec) {
-
     std::size_t num_of_hits = 0;
 
     for (std::size_t pos = 0; pos < i_hash_vec.size(); pos++) {
-
         if (contain (i_hash_vec[pos]))
             num_of_hits++;
 
@@ -90,4 +83,10 @@ std::size_t belady::cache (const std::vector<std::size_t>& i_hash_vec) {
     }
 
     return num_of_hits;
+}
+
+void belady::dump () {
+    std::cout << "Belady's data: ";
+    for (std::size_t hash : hash_vec) {std::cout << "[ " << hash << " ] ";}
+    std::cout << std::endl;
 }

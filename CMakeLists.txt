@@ -24,20 +24,20 @@ cmake_minimum_required (VERSION 3.14)
 #-------------------
 # Compilation flags
 #-------------------
-    set (CMAKE_CXX_STANDARD 20)
-    set (CMAKE_CXX_STANDARD_REQUIRED ON)
-    if (MSVC)
-        target_compile_options (run PRIVATE  /W4)
-        target_compile_options (run_belady PRIVATE  /W4)
-    else ()
-        target_compile_options (run PRIVATE  -Wall -Wextra -pedantic -Werror)
-        target_compile_options (run_belady PRIVATE  -Wall -Wextra -pedantic -Werror)
-    endif ()
+set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+if (MSVC)
+    target_compile_options (run PRIVATE  /W4)
+    target_compile_options (run_belady PRIVATE  /W4)
+else ()
+    target_compile_options (run PRIVATE  -Wall -Wextra -pedantic -Werror)
+    target_compile_options (run_belady PRIVATE  -Wall -Wextra -pedantic -Werror)
+endif ()
 
 #---------
 # Testing
 #---------
-    # google test is a git submodule for the project, and it is also cmake-based.
+    # Google test is a git submodule for the project, and it is also cmake-based.
     add_subdirectory (googletest)
 
     enable_testing ()
@@ -46,8 +46,8 @@ cmake_minimum_required (VERSION 3.14)
     # 'project(gtest)' above.
     include_directories (${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-    # Test file.
-    file (GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/testing/testing.cpp)
+    # Testing files.
+    file (GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/testing/*.cpp)
 
     # Unit tests target.
     add_executable (run_unit_tests ${TEST_SRC_FILES})

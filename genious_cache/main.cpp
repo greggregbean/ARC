@@ -10,7 +10,7 @@ int main() {
     std::vector<std::size_t> i_hash_vec;
     std::size_t x_hash;
 
-    for (auto i = 0; i < num_of_elems; ++i) {
+    for (std::size_t i = 0; i < num_of_elems; ++i) {
         std::cin >> x_hash;
         i_hash_vec.push_back (x_hash);
     }

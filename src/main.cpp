@@ -1,7 +1,6 @@
 #include "arc.hpp"
 
-int main () 
-{   
+int main () {   
     std::size_t capacity;
     std::size_t num_of_elems;
     std::size_t num_of_hits = 0;
@@ -16,6 +15,8 @@ int main ()
       std::cin >> x;
       if (cache_mem.cache (x))
         num_of_hits++;
+      cache_mem.dump();
+      std::cout << std::endl;
     } 
 
     std::cout << num_of_hits << std::endl;
