@@ -15,8 +15,6 @@ int main () {
       std::cin >> x;
       if (cache_mem.cache (x))
         num_of_hits++;
-      cache_mem.dump();
-      std::cout << std::endl;
     } 
 
     std::cout << num_of_hits << std::endl;
