@@ -44,12 +44,11 @@ bool belady::contain (std::size_t x_hash) {
 }
 
 std::size_t belady::will_use_later (const std::vector<std::size_t>& i_hash_vec, std::size_t pos) {
-    std::size_t most_useless;
-    std::size_t max_future_pos = pos;
+    std::size_t most_useless = 0;
     std::size_t future_pos;
+    std::size_t max_future_pos = pos + 1;
 
     for(std::size_t i = 0; i < capacity; i++) {
-
         future_pos = pos + 1;
 
         while (future_pos < i_hash_vec.size() && i_hash_vec[future_pos] != hash_vec[i]) {

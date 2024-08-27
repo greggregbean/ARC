@@ -30,8 +30,8 @@ if (MSVC)
     target_compile_options (run PRIVATE  /W4)
     target_compile_options (run_belady PRIVATE  /W4)
 else ()
-    target_compile_options (run PRIVATE  -Wall -Wextra -pedantic -Werror)
-    target_compile_options (run_belady PRIVATE  -Wall -Wextra -pedantic -Werror)
+    target_compile_options (run PRIVATE -O3 -Wall -Wextra -pedantic -Werror)
+    target_compile_options (run_belady PRIVATE -O3  -Wall -Wextra -pedantic -Werror)
 endif ()
 
 #---------
