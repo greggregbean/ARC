@@ -29,7 +29,12 @@ public:
         cache_dir (i_capacity), capacity (i_capacity) {
             memory.reserve (i_capacity);
     }
-    bool cache (const T& x);
+
+    std::size_t count_hash (const T& x)   { return hash_function (x); }
+    bool in_cache_p (std::size_t x_hash)  { return T_case (x_hash); }
+    T get_from_cache (std::size_t x_hash) { return memory.at(x_hash); }
+    void place_in_cache (const T& x, std::size_t x_hash);
+
     void dump () { cache_dir.dump(); }
 };
 
@@ -77,22 +82,12 @@ void arc<T>::nowhere_case (const T &x, std::size_t x_hash) {
 }
 
 template <typename T>
-bool arc<T>::cache (const T& x) {
-    std::size_t x_hash = hash_function (x);
-    std::list<std::size_t>::iterator it;
-
-    if (T_case (x_hash))
-        return true;
-    
-    else if (B1_case (x, x_hash))
-        return true;
-    
+void arc<T>::place_in_cache (const T& x, std::size_t x_hash) {
+    if (B1_case (x, x_hash))
+        return;
     else if (B2_case (x, x_hash))
-        return true;
-
-    else    
+        return;
+    else 
         nowhere_case (x, x_hash); 
-        
-    return false;     
 }
 

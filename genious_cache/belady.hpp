@@ -20,7 +20,9 @@ public:
     std::size_t get_capacity () {return capacity;}
     std::size_t get_size() {return hash_vec.size();}
 
-    belady (std::size_t i_capacity) : capacity (i_capacity) {}
+    belady (std::size_t i_capacity) : capacity (i_capacity) {
+        hash_vec.reserve (capacity);
+    }
 
     std::size_t cache (const std::vector<std::size_t>& i_hash_vec);
     

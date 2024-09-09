@@ -8,6 +8,7 @@ int main() {
     std::cin >> num_of_elems;
 
     std::vector<std::size_t> i_hash_vec;
+    i_hash_vec.reserve (num_of_elems);
     std::size_t x_hash;
 
     for (std::size_t i = 0; i < num_of_elems; ++i) {

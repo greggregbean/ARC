@@ -34,8 +34,8 @@ struct cache_directory {
     bool process_B2_case (std::size_t hash, std::size_t& to_remove);
     void process_nowhere_case (std::size_t& to_remove);
 
-    std::size_t L1_size () {return T1.size() + B1.size();}
-    std::size_t L2_size () {return T2.size() + B2.size();}
+    std::size_t L1_size () const {return T1.size() + B1.size();}
+    std::size_t L2_size () const {return T2.size() + B2.size();}
 
     void dump ();
 };
