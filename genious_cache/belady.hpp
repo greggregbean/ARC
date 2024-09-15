@@ -68,6 +68,7 @@ std::size_t belady::will_use_later (const std::vector<std::size_t>& i_hash_vec, 
 
 std::size_t belady::cache (const std::vector<std::size_t>& i_hash_vec) {
     std::size_t num_of_hits = 0;
+    std::size_t replace_pos;
 
     for (std::size_t pos = 0; pos < i_hash_vec.size(); pos++) {
         if (contain (i_hash_vec[pos]))
@@ -78,7 +79,7 @@ std::size_t belady::cache (const std::vector<std::size_t>& i_hash_vec) {
 
         else
         {
-            std::size_t replace_pos = will_use_later (i_hash_vec, pos);
+            replace_pos = will_use_later (i_hash_vec, pos);
             replace_hash (i_hash_vec[pos], replace_pos);
         }
     }
