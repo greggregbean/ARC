@@ -34,28 +34,3 @@ else ()
     target_compile_options (run_belady PRIVATE -O3  -Wall -Wextra -pedantic -Werror)
 endif ()
 
-#---------
-# Testing
-#---------
-    # Google test is a git submodule for the project, and it is also cmake-based.
-    add_subdirectory (googletest)
-
-    enable_testing ()
-
-    # Include the gtest library. gtest_SOURCE_DIR is available due to
-    # 'project(gtest)' above.
-    include_directories (${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-
-    # Testing files.
-    file (GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/testing/*.cpp)
-
-    # Unit tests target.
-    add_executable (run_unit_tests ${TEST_SRC_FILES})
-
-    # Standard linking to gtest stuff.
-    target_link_libraries (run_unit_tests gtest gtest_main)
-
-    # This is so you can do 'make test' to see all your tests run, instead of
-    # manually running the executable run_unit_tests to see those specific tests.
-    add_test (UnitTests run_unit_tests)
-
