@@ -29,10 +29,12 @@ struct cache_directory {
 
     std::size_t replace_p (bool B2_case = false);
 
+    /* First 3 functions return true, if HASH is found in corresponding section,
+    process_nowhere_case() returns true, if we need to remove element TO_RM. */
     bool process_T_case (std::size_t hash);
-    bool process_B1_case (std::size_t hash, std::size_t& to_remove);
-    bool process_B2_case (std::size_t hash, std::size_t& to_remove);
-    void process_nowhere_case (std::size_t& to_remove);
+    bool process_B1_case (std::size_t hash, std::size_t& to_rm);
+    bool process_B2_case (std::size_t hash, std::size_t& to_rm);
+    bool process_nowhere_case (std::size_t& to_rm);
 
     std::size_t L1_size () const {return T1.size() + B1.size();}
     std::size_t L2_size () const {return T2.size() + B2.size();}
@@ -79,11 +81,12 @@ bool cache_directory::process_T_case (std::size_t hash) {
     return false;
 }
 
-bool cache_directory::process_B1_case (std::size_t hash, std::size_t& to_remove) {
+bool cache_directory::process_B1_case (std::size_t hash, std::size_t& to_rm) {
     std::list<std::size_t>::iterator it;
     if ((it = std::find (B1.begin(), B1.end(), hash)) != B1.end()) {
         p = std::min (capacity, p + std::max (B2.size()/B1.size(), static_cast<std::size_t> (1)));
-        to_remove = replace_p ();
+
+        to_rm = replace_p ();
 
         B1.erase (it);
         T2.push_front (hash);
@@ -94,11 +97,12 @@ bool cache_directory::process_B1_case (std::size_t hash, std::size_t& to_remove)
     return false;
 }
 
-bool cache_directory::process_B2_case (std::size_t hash, std::size_t& to_remove) {
+bool cache_directory::process_B2_case (std::size_t hash, std::size_t& to_rm) {
     std::list<std::size_t>::iterator it;
     if ((it = std::find (B2.begin(), B2.end(), hash)) != B2.end()) {
         p = std::max (static_cast<std::size_t> (0), p - std::max (B1.size()/B2.size(), static_cast<std::size_t> (1)));
-        to_remove = replace_p (true);
+
+        to_rm = replace_p (true);
 
         B2.erase (it);
         T2.push_front (hash);
@@ -109,24 +113,30 @@ bool cache_directory::process_B2_case (std::size_t hash, std::size_t& to_remove)
     return false;
 }
 
-void cache_directory::process_nowhere_case (std::size_t& to_remove) {
+bool cache_directory::process_nowhere_case (std::size_t& to_rm) {
     if (L1_size () == capacity) {
         if (T1.size() < capacity) {
             B1.pop_back();
-            to_remove = replace_p();
+            to_rm = replace_p();
         }
         else {   
-            to_remove = T1.back();
+            to_rm = T1.back();
             T1.pop_back();
         }
+
+        return true;
     }
 
     else if (L1_size() + L2_size() >= capacity) {
         if (L1_size() + L2_size() == 2*capacity)
             B2.pop_back();
         
-        to_remove = replace_p();
+        to_rm = replace_p();
+        
+        return true;
     }
+
+    return false;
 }
 
 void cache_directory::dump () {

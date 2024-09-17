@@ -1,2 +1,4 @@
 .vscode
 build
+testing/input_files
+testing/result_table

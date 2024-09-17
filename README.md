@@ -21,5 +21,8 @@ cmake --build build
 
 ## Running tests
 ````
-./build/run_unit_tests
+pip install tabulate
+cd testing
+python3 ./compare.py
 ````
+The result table is in `testing/` dir
