@@ -45,10 +45,10 @@ bool arc<T>::T_case (std::size_t x_hash) {
 
 template <typename T>
 bool arc<T>::B1_case (const T& x, std::size_t x_hash) {
-    std::size_t to_remove;
+    std::size_t to_rm;
 
-    if (cache_dir.process_B1_case (x_hash, to_remove)) {   
-        remove_from_memory (to_remove);
+    if (cache_dir.process_B1_case (x_hash, to_rm)) {   
+        remove_from_memory (to_rm);
         place_in_memory (x, x_hash);
 
         return true;
@@ -59,10 +59,10 @@ bool arc<T>::B1_case (const T& x, std::size_t x_hash) {
 
 template <typename T>
 bool arc<T>::B2_case (const T& x, std::size_t x_hash) {
-    std::size_t to_remove;
+    std::size_t to_rm;
 
-    if (cache_dir.process_B2_case (x_hash, to_remove)) { 
-        remove_from_memory (to_remove);
+    if (cache_dir.process_B2_case (x_hash, to_rm)) { 
+        remove_from_memory (to_rm);
         place_in_memory (x, x_hash);
 
         return true;
@@ -73,9 +73,10 @@ bool arc<T>::B2_case (const T& x, std::size_t x_hash) {
 
 template <typename T>
 void arc<T>::nowhere_case (const T &x, std::size_t x_hash) {
-    std::size_t to_remove;
-    cache_dir.process_nowhere_case (to_remove);
-    remove_from_memory (to_remove);
+    std::size_t to_rm;
+
+    if (cache_dir.process_nowhere_case (to_rm))
+        remove_from_memory (to_rm);
 
     cache_dir.store_new_hash (x_hash);
     place_in_memory (x, x_hash);
